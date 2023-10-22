@@ -1,7 +1,10 @@
+import { Pagination } from '@/components/Pagination';
 import { Table } from '@/components/Table';
 import styles from '@/styles/tableDemo.module.scss';
+import { useState } from 'react';
 
 export function TableDemo() {
+  const [currentPage, setCurrentPage] = useState(1);
   const dataSource = [
     {
       key: '1',
@@ -47,6 +50,10 @@ export function TableDemo() {
     },
   ];
 
+  function onChange() {
+    setCurrentPage((x) => x + 1);
+  }
+
   return (
     <div>
       <Table
@@ -55,6 +62,14 @@ export function TableDemo() {
         dataSource={dataSource}
         columns={columns}
       />
+      <div className={styles.paginateWrapper}>
+        <Pagination
+          current={currentPage}
+          total={400}
+          pageSize={10}
+          onChange={onChange}
+        />
+      </div>
     </div>
   );
 }
