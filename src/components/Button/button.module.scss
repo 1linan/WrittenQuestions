@@ -1,0 +1,65 @@
+.btn {
+  border-radius: 6px;
+  border: none;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.btn.large {
+  width: 208px;
+  height: 34px;
+}
+.btn.middle {
+  width: 189px;
+  height: 34px;
+}
+.btn.small {
+  width: 69px;
+  height: 32px;
+}
+.btn.primary {
+  background: #3caded;
+  color: #fff;
+}
+
+.btn.link {
+  border: none;
+  color: #3caded;
+  background: transparent;
+}
+
+.primary.ghost {
+  border: 1px solid #3caded;
+  color: #3caded;
+  background-color: transparent;
+}
+.btn.danger {
+  background: #ff5449;
+  color: #fff;
+}
+.danger.ghost {
+  border: 1px solid #ff5449;
+  color: #ff5449;
+  background-color: transparent;
+}
+
+.btn.gray {
+  background: #dbdbdb;
+  color: #919191;
+}
+
+.gray.ghost {
+  background-color: transparent;
+}
+.default {
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  background: #dbdbdb;
+  color: #919191;
+  border: none;
+}
