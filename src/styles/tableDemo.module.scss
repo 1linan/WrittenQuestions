@@ -1,0 +1,33 @@
+.thead{
+  background: #F3F3F3;
+  height:35px;
+
+  @media screen and (max-width:1000px){
+    display:none;
+  }
+}
+.row{
+  padding: 16px;
+}
+
+.thead th{
+  padding: 8px 0px;
+}
+.thead th:first-child{
+  padding: 8px 0px 8px 16px;
+}
+.thead th:last-child{
+  padding: 8px 16px 8px 0px;
+}
+.row td{
+  padding: 16px 0px;
+}
+.row td:first-child{
+  padding: 16px 0px 16px 16px;
+}
+.row td:last-child{
+  padding: 16px 16px 16px 0px;
+}
+.row td{
+  border-bottom: 1px solid #C4C4C4;
+}

@@ -1,6 +1,6 @@
+import searchIcon from '@/assets/images/Search.svg';
 import React from 'react';
 import styles from './search.module.scss';
-import searchIcon from '@/assets/images/Search.svg';
 
 /**
  * 如何使用，请看demo.tsx
@@ -16,7 +16,11 @@ export function Search(props: SearchProps) {
   return (
     <div className={styles.searchContainer}>
       <img src={searchIcon} alt="" />
-      <input placeholder="Search username..." value={value} onChange={onChange} />
+      <input
+        placeholder="Search username..."
+        value={value}
+        onChange={onChange}
+      />
     </div>
   );
 }

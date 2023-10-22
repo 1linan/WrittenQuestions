@@ -1,13 +1,13 @@
-import styles from './layout.module.scss';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
+import styles from './layout.module.scss';
 
 function Layout() {
-  const navigate= useNavigate();
+  const navigate = useNavigate();
 
-  useEffect(()=>{
+  useEffect(() => {
     navigate('/button');
-  },[navigate])
+  }, [navigate]);
 
   return (
     <div className={styles.layout}>
@@ -21,6 +21,12 @@ function Layout() {
           </li>
           <li>
             <Link to={'/countdown'}>CountDown</Link>
+          </li>
+          <li>
+            <Link to={'/table'}>Table</Link>
+          </li>
+          <li>
+            <Link to={'/tab'}>Tab</Link>
           </li>
         </ul>
       </div>

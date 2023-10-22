@@ -1,7 +1,7 @@
 // import { useDebounce } from 'ahooks'
-import React, { useState } from 'react';
 import { Search } from '@/components/Search';
-import styles from '@/styles/searchDemo.module.scss'
+import styles from '@/styles/searchDemo.module.scss';
+import React, { useState } from 'react';
 
 export function SearchUseDemo() {
   const [searchValue, setSearchValue] = useState('');

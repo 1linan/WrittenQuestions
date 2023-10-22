@@ -1,8 +1,8 @@
-import styles from './button.module.scss';
+import addIcon from '@/assets/images/add.png';
+import { ButtonType } from '@/types/type';
 import cn from 'classnames';
 import React, { ReactNode } from 'react';
-import { ButtonType } from '@/types/type';
-import addIcon from '@/assets/images/add.png';
+import styles from './button.module.scss';
 
 interface ButtonProps {
   // eslint-disable-next-line no-unused-vars
@@ -16,6 +16,8 @@ interface ButtonProps {
   gray?: boolean; //设置暗灰色按钮，默认是false
   disabled?: boolean; //设置按钮失效状态，默认是false
   size?: 'large' | 'middle' | 'small'; //设置按钮大小,默认是middle
+  colorfulBorders?: boolean; //彩色边框
+  colorfulBordersShadows?: boolean; //彩色边框--阴影
 }
 
 export function Button(props: ButtonProps) {
@@ -28,6 +30,8 @@ export function Button(props: ButtonProps) {
     disabled = false,
     gray = false,
     size = 'middle',
+    colorfulBorders,
+    colorfulBordersShadows,
     onClick = () => {
       //
     },
@@ -42,6 +46,8 @@ export function Button(props: ButtonProps) {
         [styles.gray]: gray,
         [styles.disabled]: disabled,
         [styles.gray]: gray,
+        [styles.colorfulBorders]: colorfulBorders,
+        [styles.colorfulBordersShadows]: colorfulBordersShadows,
       })}
       disabled={disabled}
     >
