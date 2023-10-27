@@ -8,7 +8,7 @@ interface ButtonProps {
   // eslint-disable-next-line no-unused-vars
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   children: ReactNode | string;
-  className?: any;
+  className?: string;
   type?: ButtonType | 'primary' | 'link'; //设置按钮类型
   ghost?: boolean; //幽灵属性，使按钮背景透明，默认是false
   add?: boolean; //是否带+号，默认不带，默认是false

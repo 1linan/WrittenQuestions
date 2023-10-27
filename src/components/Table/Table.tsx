@@ -22,7 +22,6 @@ interface TableProps {
 export function Table(props: TableProps) {
   const { theadClassName, rowClassName, dataSource, columns } = props;
   const [dataSource2, setDataSource2] = useState([]);
-
   useEffect(() => {
     setDataSource2(dataSource);
   }, [dataSource]);
