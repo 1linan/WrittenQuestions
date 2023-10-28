@@ -17,4 +17,11 @@
       height: 40px;
     }
   }
+  .butns{
+    display: flex;
+    align-items: center;
+    &>button:first-child{
+      margin-right: 16px;
+    }
+  }
 }

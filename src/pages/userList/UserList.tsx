@@ -12,12 +12,10 @@ import {
 } from '@/store/slices/user';
 import {
   Button,
-  Col,
   Input,
   Modal,
   PaginationProps,
   Popconfirm,
-  Row,
   Space,
   Table,
 } from 'antd';
@@ -225,27 +223,22 @@ export function UserList() {
             onSearch={onSearch}
           />
         </div>
-        <Row>
-          <Col span={12}>
-            <Button
-              type="primary"
-              className={styles.deleteAll}
-              onClick={onAddUserInfo}
-            >
-              add +
-            </Button>
-          </Col>
-
-          <Col span={8}>
-            <Button
-              type="primary"
-              className={styles.deleteAll}
-              onClick={onDeleteAllUser}
-            >
-              delete selected user
-            </Button>
-          </Col>
-        </Row>
+        <div className={styles.butns}>
+          <Button
+            type="primary"
+            className={styles.deleteAll}
+            onClick={onAddUserInfo}
+          >
+            add +
+          </Button>
+          <Button
+            type="primary"
+            className={styles.deleteAll}
+            onClick={onDeleteAllUser}
+          >
+            delete selected user
+          </Button>
+        </div>
       </div>
       {/* <Radio.Group
         onChange={({ target: { value } }) => {
