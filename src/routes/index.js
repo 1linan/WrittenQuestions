@@ -1,10 +1,9 @@
 import Layout from '@/components/Layout/Layout';
-import { ButtonUseDemo } from '@/pages/ButtonDemo';
-import { CountDownDemo } from '@/pages/countDownDemo';
-import { SearchUseDemo } from '@/pages/SearchDemo';
-import { TabDemo } from '@/pages/TabDemo';
-import { TableDemo } from '@/pages/TableDemo';
+import { UserList } from '@/pages/userList/UserList';
+// import { lazy } from 'react';
+import { AddUserInfo } from '@/pages/addUserInfo';
 import { createBrowserRouter } from 'react-router-dom';
+// const UserList = lazy(() => import('../pages/userList/UserList'));
 
 export const router = createBrowserRouter([
   {
@@ -12,24 +11,12 @@ export const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: '/button',
-        element: <ButtonUseDemo />,
+        path: '/userlist',
+        element: <UserList />,
       },
       {
-        path: '/search',
-        element: <SearchUseDemo />,
-      },
-      {
-        path: '/countdown',
-        element: <CountDownDemo />,
-      },
-      {
-        path: '/table',
-        element: <TableDemo />,
-      },
-      {
-        path: 'tab',
-        element: <TabDemo />,
+        path: '/add',
+        element: <AddUserInfo />,
       },
     ],
   },

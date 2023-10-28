@@ -1,0 +1,20 @@
+.userWrapper{
+  h1{
+    font-size: 25px;
+    margin-bottom: 16px;
+  }
+
+  .search{
+    width: 100%;
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    .searchItem{
+      width: 500px;
+    }
+    .deleteAll{
+      height: 40px;
+    }
+  }
+}
