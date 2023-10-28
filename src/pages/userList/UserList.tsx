@@ -1,5 +1,6 @@
 import { getUserList } from '@/api/user';
 import EditUserInfo from '@/components/EditUserInfo/EditUserInfo';
+import { useMessage } from '@/hook/useMessage';
 import { RootState } from '@/store';
 import {
   deleteAllUser,
@@ -9,7 +10,16 @@ import {
   setUserList,
   setUserTotal,
 } from '@/store/slices/user';
-import { Button, Input, Modal, PaginationProps, Space, Table } from 'antd';
+import {
+  Button,
+  Col,
+  Input,
+  Modal,
+  PaginationProps,
+  Row,
+  Space,
+  Table,
+} from 'antd';
 import { SearchProps } from 'antd/es/input';
 import type { ColumnsType } from 'antd/es/table';
 import { useEffect, useMemo, useState } from 'react';
@@ -29,9 +39,11 @@ export function UserList() {
     total,
     currentUserList: list,
   } = useSelector((state: RootState) => state.user);
+  const { message } = useMessage();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(-1);
   const [currentPage, setCurrentPage] = useState(1);
+  const [optionType, setOptionType] = useState(1); //type 1==="edit" type 2==="添加用户消息"
   // const [list, setList] = useState<DataType[]>([]);
   useEffect(() => {
     getUserList()
@@ -77,6 +89,7 @@ export function UserList() {
   }, [currentPage, userList, dispatch]);
 
   const showModal = (record: DataType) => {
+    setOptionType(1);
     setSelectedId(record.id);
     setIsModalOpen(true);
   };
@@ -96,6 +109,7 @@ export function UserList() {
     //   console.log(err);
     // }
     dispatch(deleteUser(record.id));
+    message('success', 'Successfully deleted');
   }
 
   const columns: ColumnsType<DataType> = [
@@ -167,6 +181,10 @@ export function UserList() {
     showSizeChanger: false,
   };
 
+  function onAddUserInfo() {
+    setOptionType(2);
+    setIsModalOpen(true);
+  }
   return (
     <div className={styles.userWrapper}>
       <h1>用户列表</h1>
@@ -180,22 +198,41 @@ export function UserList() {
             onSearch={onSearch}
           />
         </div>
-        <Button
-          type="primary"
-          className={styles.deleteAll}
-          onClick={onDeleteAllUser}
-        >
-          全部删除
-        </Button>
+        <Row>
+          <Col span={12}>
+            <Button
+              type="primary"
+              className={styles.deleteAll}
+              onClick={onAddUserInfo}
+            >
+              add +
+            </Button>
+          </Col>
+
+          <Col span={8}>
+            <Button
+              type="primary"
+              className={styles.deleteAll}
+              onClick={onDeleteAllUser}
+            >
+              delete all
+            </Button>
+          </Col>
+        </Row>
       </div>
       <Table columns={columns} dataSource={data} pagination={paginationProps} />
       <Modal
-        title="Edit UserInfo"
+        title={optionType === 1 ? 'Edit UserInfo' : 'Add UserInfo'}
         footer={null}
         open={isModalOpen}
         onCancel={handleCancel}
       >
-        <EditUserInfo onCancel={handleCancel} onOk={handleOk} id={selectedId} />
+        <EditUserInfo
+          type={optionType}
+          onCancel={handleCancel}
+          onOk={handleOk}
+          id={selectedId}
+        />
       </Modal>
     </div>
   );

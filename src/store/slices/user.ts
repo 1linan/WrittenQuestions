@@ -83,11 +83,13 @@ export const userSlice = createSlice({
       state.userList = [];
     },
     addUserInfo(state: UserState, action: PayloadAction<AddUserInfoState>) {
+      const len = state.userList.length + 1;
       const data = {
-        id: state.userList.length + 1,
+        id: len,
         ...action.payload,
       };
-      state.userList.push(data);
+      state.total = len;
+      state.userList.unshift(data);
     },
     setUserTotal(state: UserState, action: PayloadAction<number>) {
       state.total = action.payload;

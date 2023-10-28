@@ -1,7 +1,8 @@
 .layout{
   display: flex;
-  height: 100vh;
+  height: 100%;
   min-height: 100vh;
+  background: #001529;
   .left{
     width:270px;
     height: 100%;
@@ -32,11 +33,12 @@
     // a{
     //   color:#fff;
     // }
-
   }
   .right{
     flex:1;
+    background-color: #fff;
      height: 100%;
+     min-height: 100vh;
      padding: 32px;
   }
 }

@@ -1,11 +1,21 @@
+import { setMessageApi } from '@/store/slices/message';
 import { UserOutlined } from '@ant-design/icons';
-import { Menu } from 'antd';
+import { Menu, message } from 'antd';
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, Outlet, useNavigate } from 'react-router-dom';
 import styles from './layout.module.scss';
 
 function Layout() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [messageApi, contextHolder] = message.useMessage();
+
+  useEffect(() => {
+    if (messageApi) {
+      dispatch(setMessageApi(messageApi));
+    }
+  }, [messageApi, dispatch]);
 
   useEffect(() => {
     navigate('/userlist');
@@ -21,16 +31,13 @@ function Layout() {
           key: '11',
           label: <Link to={'/userlist'}>用户列表</Link>,
         },
-        {
-          key: '12',
-          label: <Link to={'/add'}>添加用户信息</Link>,
-        },
       ],
     },
   ];
 
   return (
     <div className={styles.layout}>
+      {contextHolder}
       <div className={styles.left}>
         <Menu
           mode="inline"

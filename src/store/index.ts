@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { messageSlice } from './slices/message';
 import { userSlice } from './slices/user';
 
 //configureStore挂载每一个modules
 const store = configureStore({
   reducer: {
     user: userSlice.reducer, //user module
+    message: messageSlice.reducer,
   },
   devTools: true,
 });
