@@ -241,7 +241,11 @@ export function UserList() {
             placement="left"
           >
             {' '}
-            <Button type="primary" className={styles.deleteAll}>
+            <Button
+              type="primary"
+              className={styles.deleteAll}
+              disabled={selectedList.length === 0}
+            >
               delete selected user
             </Button>
           </Popconfirm>
