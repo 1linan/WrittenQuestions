@@ -40,7 +40,7 @@ export function UserList() {
   } = useSelector((state: RootState) => state.user);
   const { message } = useMessage();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedId, setSelectedId] = useState(-1);
+  const [selectedUser, setSelectedUser] = useState<DataType>();
   const [currentPage, setCurrentPage] = useState(1);
   const [optionType, setOptionType] = useState(1); //type 1==="edit" type 2==="添加用户消息"
   const [selectionType] = useState<'checkbox' | 'radio'>('checkbox');
@@ -90,7 +90,7 @@ export function UserList() {
 
   const showModal = (record: DataType) => {
     setOptionType(1);
-    setSelectedId(record.id);
+    setSelectedUser(record);
     setIsModalOpen(true);
   };
 
@@ -231,13 +231,20 @@ export function UserList() {
           >
             add +
           </Button>
-          <Button
-            type="primary"
-            className={styles.deleteAll}
-            onClick={onDeleteAllUser}
+          <Popconfirm
+            title="Delete the task"
+            description="Are you sure to delete this task?"
+            onConfirm={onDeleteAllUser}
+            onCancel={cancel}
+            okText="Yes"
+            cancelText="No"
+            placement="left"
           >
-            delete selected user
-          </Button>
+            {' '}
+            <Button type="primary" className={styles.deleteAll}>
+              delete selected user
+            </Button>
+          </Popconfirm>
         </div>
       </div>
       {/* <Radio.Group
@@ -271,7 +278,8 @@ export function UserList() {
           type={optionType}
           onCancel={handleCancel}
           onOk={handleOk}
-          id={selectedId}
+          id={selectedUser?.id}
+          selectedUser={selectedUser}
         />
       </Modal>
     </div>
