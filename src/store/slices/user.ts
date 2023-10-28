@@ -5,9 +5,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface UserState {
   userList: DataType[]; //
   cloneUserList: DataType[]; //
+  copyUserList: DataType[]; //
+  currentUserList: DataType[]; //
   total: number; //
 }
-
 interface EditState {
   id: number;
   name?: string;
@@ -23,6 +24,8 @@ interface AddUserInfoState {
 const initialState: UserState = {
   userList: [],
   cloneUserList: [],
+  copyUserList: [],
+  currentUserList: [],
   total: 0,
 };
 
@@ -41,6 +44,12 @@ export const userSlice = createSlice({
     setUserList(state: UserState, action: PayloadAction<DataType[]>) {
       console.log(action.payload, ')___');
       state.userList = action.payload;
+    },
+    setCopyUserList(state: UserState, action: PayloadAction<DataType[]>) {
+      state.copyUserList = action.payload;
+    },
+    setCurrentUserList(state: UserState, action: PayloadAction<DataType[]>) {
+      state.currentUserList = action.payload;
     },
     deleteUser(state: UserState, action: PayloadAction<number>) {
       console.log(action.payload, 'id');
@@ -62,13 +71,13 @@ export const userSlice = createSlice({
     },
     searchUserByName(state: UserState, action: PayloadAction<string>) {
       if (state.cloneUserList.length === 0)
-        state.cloneUserList = cloneUserList(state.userList);
-      const res = state.cloneUserList.filter((v) => {
+        state.cloneUserList = cloneUserList(state.currentUserList);
+      const res = state.userList.filter((v) => {
         if (v.name.includes(action.payload)) {
           return v;
         }
       });
-      state.userList = res;
+      state.currentUserList = res;
     },
     deleteAllUser(state: UserState) {
       state.userList = [];
@@ -95,4 +104,6 @@ export const {
   deleteAllUser,
   addUserInfo,
   setUserTotal,
+  setCopyUserList,
+  setCurrentUserList,
 } = userSlice.actions;
