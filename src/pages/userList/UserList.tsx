@@ -3,7 +3,7 @@ import EditUserInfo from '@/components/EditUserInfo/EditUserInfo';
 import { useMessage } from '@/hook/useMessage';
 import { RootState } from '@/store';
 import {
-  deleteAllUser,
+  deleteSelectedUser,
   deleteUser,
   searchUserByName,
   setCurrentUserList,
@@ -16,6 +16,7 @@ import {
   Input,
   Modal,
   PaginationProps,
+  Popconfirm,
   Row,
   Space,
   Table,
@@ -44,7 +45,8 @@ export function UserList() {
   const [selectedId, setSelectedId] = useState(-1);
   const [currentPage, setCurrentPage] = useState(1);
   const [optionType, setOptionType] = useState(1); //type 1==="edit" type 2==="添加用户消息"
-  // const [list, setList] = useState<DataType[]>([]);
+  const [selectionType] = useState<'checkbox' | 'radio'>('checkbox');
+  const [selectedList, setSelectedList] = useState<DataType[]>([]);
   useEffect(() => {
     getUserList()
       .then((res: any) => {
@@ -112,6 +114,7 @@ export function UserList() {
     message('success', 'Successfully deleted');
   }
 
+  const cancel = () => {};
   const columns: ColumnsType<DataType> = [
     {
       title: 'Name',
@@ -136,7 +139,16 @@ export function UserList() {
       render: (_, record) => (
         <Space size="middle">
           <a onClick={() => showModal(record)}>Edit</a>
-          <a onClick={() => onDelete(record)}>Delete</a>
+          <Popconfirm
+            title="Delete the user"
+            description="Are you sure to delete this user?"
+            onConfirm={() => onDelete(record)}
+            onCancel={cancel}
+            okText="Yes"
+            cancelText="No"
+          >
+            <a>Delete</a>
+          </Popconfirm>
         </Space>
       ),
     },
@@ -163,7 +175,9 @@ export function UserList() {
   };
 
   const onDeleteAllUser = () => {
-    dispatch(deleteAllUser());
+    // dispatch(deleteAllUser());
+    dispatch(deleteSelectedUser(selectedList));
+    message('success', 'Successfully deleted');
   };
 
   const onChange: PaginationProps['onChange'] = (page) => {
@@ -173,7 +187,7 @@ export function UserList() {
   // 表格分页属性
   const paginationProps = {
     total: total,
-    //showTotal: (total: number) => `Total ${total} items`,
+    showTotal: (total: number) => `Total ${total}`,
     defaultPageSize: 10,
     pageSize: 10,
     defaultCurrent: currentPage,
@@ -185,6 +199,19 @@ export function UserList() {
     setOptionType(2);
     setIsModalOpen(true);
   }
+  const rowSelection = {
+    onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
+      console.log(
+        `selectedRowKeys: ${selectedRowKeys}`,
+        'selectedRows: ',
+        selectedRows,
+      );
+    },
+    getCheckboxProps: (record: DataType) => ({
+      disabled: record.name === 'Disabled User', // Column configuration not to be checked
+      name: record.name,
+    }),
+  };
   return (
     <div className={styles.userWrapper}>
       <h1>用户列表</h1>
@@ -215,12 +242,32 @@ export function UserList() {
               className={styles.deleteAll}
               onClick={onDeleteAllUser}
             >
-              delete all
+              delete selected user
             </Button>
           </Col>
         </Row>
       </div>
-      <Table columns={columns} dataSource={data} pagination={paginationProps} />
+      {/* <Radio.Group
+        onChange={({ target: { value } }) => {
+          setSelectionType(value);
+        }}
+        value={selectionType}
+      >
+        <Radio value="checkbox">Checkbox</Radio>
+        <Radio value="radio">radio</Radio>
+      </Radio.Group> */}
+      <Table
+        columns={columns}
+        dataSource={data}
+        pagination={paginationProps}
+        rowSelection={{
+          type: selectionType,
+          ...rowSelection,
+          onChange: (_selectedRowKeys, selectedRow) => {
+            setSelectedList(selectedRow);
+          },
+        }}
+      />
       <Modal
         title={optionType === 1 ? 'Edit UserInfo' : 'Add UserInfo'}
         footer={null}

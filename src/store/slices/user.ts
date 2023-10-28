@@ -55,6 +55,7 @@ export const userSlice = createSlice({
       console.log(action.payload, 'id');
       const res = state.userList.filter((item) => item.id !== action.payload);
       state.userList = res;
+      state.total = res.length;
     },
     editUserInfo(state: UserState, action: PayloadAction<EditState>) {
       const { id, name, age, address } = action.payload;
@@ -94,6 +95,19 @@ export const userSlice = createSlice({
     setUserTotal(state: UserState, action: PayloadAction<number>) {
       state.total = action.payload;
     },
+    deleteSelectedUser(state: UserState, action: PayloadAction<DataType[]>) {
+      const data = action.payload;
+      //删除选中的数据
+      for (let i = 0; i < data.length; i++) {
+        for (let j = 0; j < state.userList.length; j++) {
+          if (data[i].id === state.userList[j].id) {
+            state.userList.splice(j, 1);
+            state.total -= 1;
+            continue;
+          }
+        }
+      }
+    },
   },
 });
 
@@ -108,4 +122,5 @@ export const {
   setUserTotal,
   setCopyUserList,
   setCurrentUserList,
+  deleteSelectedUser,
 } = userSlice.actions;
